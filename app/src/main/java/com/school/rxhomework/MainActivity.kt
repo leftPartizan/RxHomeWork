@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.annotations.SerializedName
+import com.jakewharton.rxbinding4.swiperefreshlayout.refreshes
 import com.school.rxhomework.databinding.ActivityMainBinding
 import com.school.rxhomework.databinding.ItemHolderBinding
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class MainActivity : AppCompatActivity() {
 
