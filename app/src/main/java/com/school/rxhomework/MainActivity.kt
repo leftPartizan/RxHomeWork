@@ -18,6 +18,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<ActivityViewModel>()
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            root.setOnRefreshListener { viewModel.processAction(Action.RefreshData) }
+            viewModel.getNameObserver.onNext(Unit)
+            compositeDisposable.add(root.refreshes().subscribe(viewModel.getNameObserver::onNext))
         }
     }
 
@@ -76,5 +78,10 @@ class MainActivity : AppCompatActivity() {
                 return oldItem == newItem
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 }
